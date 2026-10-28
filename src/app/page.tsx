@@ -1,6 +1,9 @@
 import React from "react";
 import CosmicScaleExplorer from "@/components/CosmicScaleExplorer";
+import DeepSpaceGallery from "@/components/DeepSpaceGallery";
 import EpisodeArchive from "@/components/EpisodeArchive";
+import Starfield, { OrbitalRings } from "@/components/Starfield";
+import TelescopeCalendar from "@/components/TelescopeCalendar";
 import {
   CHANNEL_INFO,
   GLOBAL_SKY_EVENTS,
@@ -18,6 +21,33 @@ import {
   BookOpen,
   Youtube,
 } from "lucide-react";
+
+const SKY_EVENT_IMAGES: Record<string, { src: string; alt: string }> = {
+  "sky-saturn-opposition-2026": {
+    src: "/images/space/saturn-cassini.jpg",
+    alt: "Saturn and its rings from the Cassini spacecraft",
+  },
+  "sky-orionids-2026": {
+    src: "/images/space/orionids-meteor.jpg",
+    alt: "An Orionid meteor crossing a star field",
+  },
+  "sky-full-moon-oct-2026": {
+    src: "/images/space/moon-galileo.jpg",
+    alt: "The Moon's near side from the Galileo spacecraft",
+  },
+  "sky-new-moon-nov-2026": {
+    src: "/images/space/andromeda-m31.jpg",
+    alt: "The Andromeda Galaxy, the deep-sky target of the November 9, 2026 New Moon",
+  },
+  "sky-leonids-2026": {
+    src: "/images/space/geminids-kitt-peak.jpg",
+    alt: "Meteors above Kitt Peak, the wide-field way a Leonid watch is photographed",
+  },
+  "sky-voyager-1-light-day": {
+    src: "/images/space/voyager-1.jpg",
+    alt: "Voyager spacecraft photographed during testing at JPL in November 1976",
+  },
+};
 
 export default function HomePage() {
   const flagshipVideos = EXPLAINERS_AND_SHORTS.filter((ep) => ep.youtubeId);
@@ -63,18 +93,21 @@ export default function HomePage() {
             </div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <nav className="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+            <a href="#telescope-calendar" className="text-cyan-200 hover:text-white transition-colors">
+              Telescope Calendar
+            </a>
             <a href="#scale-explorer" className="hover:text-cyan-300 transition-colors">
-              Cosmic Scale Explorer
+              Scale Explorer
+            </a>
+            <a href="#deep-space-gallery" className="hover:text-cyan-300 transition-colors">
+              Deep Space Gallery
             </a>
             <a href="#explainers" className="hover:text-cyan-300 transition-colors">
-              Explainers &amp; Shorts
+              Explainers
             </a>
             <a href="#sky-events" className="hover:text-cyan-300 transition-colors">
-              Global Sky Guide (UTC)
-            </a>
-            <a href="#methodology" className="hover:text-cyan-300 transition-colors">
-              Primary Sources
+              Sky Guide
             </a>
           </nav>
 
@@ -90,11 +123,30 @@ export default function HomePage() {
             </a>
           </div>
         </div>
+        <nav className="flex gap-4 overflow-x-auto border-t border-slate-800/80 px-4 py-2 text-xs font-semibold text-slate-300 lg:hidden">
+          <a href="#telescope-calendar" className="shrink-0 text-cyan-200">Telescope Calendar</a>
+          <a href="#scale-explorer" className="shrink-0">Scale Explorer</a>
+          <a href="#deep-space-gallery" className="shrink-0">Deep Space Gallery</a>
+          <a href="#explainers" className="shrink-0">Explainers</a>
+          <a href="#sky-events" className="shrink-0">Sky Guide</a>
+        </nav>
       </header>
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <section className="relative overflow-hidden border-b border-cyan-500/15 pt-12 pb-20 sm:pt-16 sm:pb-24">
+          <img
+            src="/images/space/carina-cosmic-cliffs.jpg"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover opacity-45"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/35 via-slate-950/78 to-slate-950" />
+          <Starfield dense className="absolute inset-0" />
+          <OrbitalRings />
+          <div className="pointer-events-none absolute left-6 top-6 hidden font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-200/80 sm:block">
+            RA 10h 37m · Dec −58° 38′ · NGC 3324 · Webb NIRCam
+          </div>
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono uppercase tracking-widest mb-6">
@@ -127,8 +179,16 @@ export default function HomePage() {
                 </a>
 
                 <a
+                  href="#telescope-calendar"
+                  className="inline-flex items-center gap-2 px-5 py-4 rounded-2xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-cyan-500/25 transition-all"
+                >
+                  <Telescope className="w-4 h-4" />
+                  Open Telescope Calendar
+                </a>
+
+                <a
                   href="#scale-explorer"
-                  className="inline-flex items-center gap-2 px-5 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 font-bold text-sm sm:text-base transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 text-cyan-300 border border-cyan-500/30 font-bold text-sm sm:text-base transition-all"
                 >
                   <Compass className="w-4 h-4" />
                   Launch Scale Explorer
@@ -168,8 +228,41 @@ export default function HomePage() {
             </div>
 
             {/* Hero Visual Card */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl bg-slate-900/90 border border-cyan-500/30 overflow-hidden shadow-2xl shadow-cyan-500/10">
+            <div className="lg:col-span-5 space-y-4">
+              <a
+                href="#telescope-calendar"
+                className="hud-frame block overflow-hidden rounded-3xl border border-cyan-400/40 bg-slate-950/80 shadow-2xl shadow-cyan-500/10"
+              >
+                <div className="relative h-36">
+                  <img
+                    src="/images/space/pillars-of-creation.jpg"
+                    alt="Webb near-infrared view of the Pillars of Creation"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/40 to-transparent" />
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-200">
+                      Observatory preview · M16
+                    </div>
+                    <div className="text-sm font-bold text-white">Pillars of Creation · 6,500 light-years</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-px bg-slate-800 text-center">
+                  <div className="bg-slate-950 px-2 py-2">
+                    <div className="font-mono text-[10px] text-cyan-300">RA 18h 18m</div>
+                    <div className="text-[11px] font-semibold text-white">Eagle Nebula</div>
+                  </div>
+                  <div className="bg-slate-950 px-2 py-2">
+                    <div className="font-mono text-[10px] text-amber-300">Dec −13° 49′</div>
+                    <div className="text-[11px] font-semibold text-white">Serpens</div>
+                  </div>
+                  <div className="bg-slate-950 px-2 py-2">
+                    <div className="font-mono text-[10px] text-indigo-300">Webb NIRCam</div>
+                    <div className="text-[11px] font-semibold text-white">Open Calendar</div>
+                  </div>
+                </div>
+              </a>
+              <div className="rounded-3xl bg-slate-950/90 border border-cyan-500/30 overflow-hidden shadow-2xl shadow-cyan-500/10">
                 <div className="relative aspect-video bg-slate-950">
                   <img
                     src="/thumbnails/ep01-universe-scale.jpg"
@@ -273,10 +366,15 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+          </div>
         </section>
+
+        <TelescopeCalendar />
 
         {/* Interactive Cosmic Scale Explorer */}
         <CosmicScaleExplorer />
+
+        <DeepSpaceGallery />
 
         {/* Filterable Explainers & Daily Shorts Archive */}
         <EpisodeArchive />
@@ -315,9 +413,14 @@ export default function HomePage() {
             {GLOBAL_SKY_EVENTS.map((ev) => (
               <div
                 key={ev.id}
-                className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 flex flex-col justify-between"
+                className="rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden flex flex-col justify-between"
               >
-                <div>
+                <img
+                  src={SKY_EVENT_IMAGES[ev.id]?.src ?? "/images/space/hubble-ultra-deep-field.jpg"}
+                  alt={SKY_EVENT_IMAGES[ev.id]?.alt ?? ev.title}
+                  className="h-40 w-full object-cover"
+                />
+                <div className="p-6">
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <span className="px-2.5 py-1 rounded-md bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 font-mono text-xs font-semibold">
                       {ev.category}
@@ -360,7 +463,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="mx-6 mb-6 mt-0 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
                   <div className="text-slate-400">
                     <strong className="text-slate-200">Optics: </strong>
                     {ev.opticalEquipment}

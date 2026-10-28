@@ -205,6 +205,22 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/",
   },
   {
+    id: "laniakea",
+    name: "Laniakea Supercluster",
+    subtitle: "Home Supercluster of the Milky Way",
+    realDistanceKm: 2.365182618e21,
+    realDistanceLabel: "250 million light-years to the Great Attractor region",
+    realDiameterKm: "about 520 million light-years across",
+    lightTravelTime: "250 million years",
+    sandScaleSize: "0.041 light-year wide basin",
+    sandScaleDistance: "0.020 light-years from the 1 mm Earth grain",
+    voyagerTravelTime: "about 4.4 trillion years at 17 km/s",
+    keyFact:
+      "The Milky Way sits inside Laniakea, a 520-million-light-year basin of attraction mapped by the Cosmicflows galaxy survey. Galaxies in this volume drift toward the Great Attractor, in the direction of Centaurus and Norma.",
+    sourceLabel: "Tully et al., Nature 513, 71 (2014)",
+    sourceUrl: "https://doi.org/10.1038/nature13674",
+  },
+  {
     id: "observable-universe",
     name: "The Observable Universe",
     subtitle: "Cosmic Horizon Expanded Over 13.8 Billion Years",
@@ -827,14 +843,14 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
   {
     id: "sky-saturn-opposition-2026",
     title: "Saturn at Opposition & Peak October Visibility",
-    dateUtc: "October 4–31, 2026 (Opposition: October 4, 2026 • 12:21 UTC)",
+    dateUtc: "October 4–31, 2026 (Opposition: October 4, 2026 • 12:29 UTC)",
     peakWindowUtc: "Visible Sunset to Sunrise All October 2026 (70.1 Light-Minutes Away)",
     category: "Planetary Alignment",
     constellation: "Cetus (near the Pisces border)",
     scaleComparison:
       "Distance: 8.43 AU (1.262 billion km). Shrink Saturn's 10-meter-thick main rings to a 0.1 mm sheet of paper and the ring system spans 2.8 km across.",
     northernHemisphere:
-      "Rises in the east-southeast around sunset and climbs high into the southern sky around local midnight. Shines at magnitude +0.3 as a steady golden point.",
+      "Rises in the east-southeast around sunset and climbs high into the southern sky around local midnight. Shines near magnitude +0.6 as a steady golden point, with the rings open 7.4° to the south.",
     southernHemisphere:
       "Rises in the east-northeast at dusk and transits high across the northern sky around local midnight, well placed across all southern latitudes.",
     opticalEquipment:
