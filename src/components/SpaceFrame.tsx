@@ -22,11 +22,11 @@ export default function SpaceFrame({
   priority = false,
 }: SpaceFrameProps) {
   return (
-    <figure className={`relative overflow-hidden bg-slate-950 ${className}`}>
+    <figure className={`relative w-full min-w-0 max-w-full overflow-hidden bg-slate-950 ${className}`}>
       <img
         src={src}
         alt={alt}
-        className={`h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"} ${imgClassName}`}
+        className={`h-full w-full min-w-0 max-w-full ${fit === "contain" ? "object-contain" : "object-cover"} ${imgClassName}`}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
       />

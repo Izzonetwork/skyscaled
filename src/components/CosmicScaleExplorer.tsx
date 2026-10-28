@@ -190,17 +190,17 @@ export default function CosmicScaleExplorer() {
 
         {/* Active Stop Readout Grid */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 min-w-0">
             <SpaceFrame
               src={activeStop.image}
               alt={activeStop.imageAlt}
               credit={activeStop.imageCredit}
               kicker={hoverIndex === null ? "Selected benchmark" : "Hover benchmark"}
               fit={activeStop.imageFit ?? "cover"}
-              className="aspect-[4/3] rounded-2xl h-full min-h-[280px]"
+              className="aspect-[4/3] rounded-2xl min-h-[280px]"
             />
           </div>
-          <div className="lg:col-span-7 rounded-2xl bg-slate-950/80 border border-slate-700/80 p-6 flex flex-col justify-between">
+          <div className="lg:col-span-7 min-w-0 rounded-2xl bg-slate-950/80 border border-slate-700/80 p-6 flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">

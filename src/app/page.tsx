@@ -49,7 +49,7 @@ export default function HomePage() {
 
       {/* Sticky Header */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-cyan-500/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-2 flex items-center justify-between gap-3">
           <a href="#" className="flex items-center gap-3 group">
             <img
               src="/images/logo-mark.png"
@@ -66,21 +66,21 @@ export default function HomePage() {
             </div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+          <nav className="hidden lg:flex items-center gap-4 text-[13px] font-medium text-slate-200 whitespace-nowrap">
             <a href="#scale-explorer" className="hover:text-cyan-300 transition-colors">
-              Cosmic Scale Explorer
+              Scale Explorer
             </a>
             <a href="#observatory" className="hover:text-cyan-300 transition-colors">
               Observatory
             </a>
             <a href="#explainers" className="hover:text-cyan-300 transition-colors">
-              Explainers &amp; Shorts
+              Explainers
             </a>
             <a href="#sky-events" className="hover:text-cyan-300 transition-colors">
-              Global Sky Guide (UTC)
+              Sky Guide
             </a>
             <a href="#methodology" className="hover:text-cyan-300 transition-colors">
-              Primary Sources
+              Sources
             </a>
           </nav>
 
@@ -92,7 +92,8 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-red-600/25 transition-all"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
-              <span>Watch on YouTube {CHANNEL_INFO.youtubeHandle}</span>
+              <span className="sm:hidden">Watch</span>
+              <span className="hidden sm:inline">Watch on YouTube {CHANNEL_INFO.youtubeHandle}</span>
             </a>
           </div>
         </div>
@@ -109,14 +110,14 @@ export default function HomePage() {
                 3-Minute Sourced Space &amp; Frontier Tech Explainers
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08] drop-shadow-[0_2px_18px_rgba(2,3,10,0.9)]">
                 SKYSCALED —{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-indigo-400">
                   The Universe, Scaled to Human Understanding
                 </span>
               </h1>
 
-              <p className="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+              <p className="mt-6 text-base sm:text-lg text-slate-100 leading-relaxed max-w-2xl drop-shadow-[0_2px_12px_rgba(2,3,10,0.95)]">
                 {CHANNEL_INFO.mission} Shrink Earth to a 1 mm grain of sand and the observable universe still spans{" "}
                 <strong className="text-white">7.3 light-years across</strong>.
               </p>
@@ -181,7 +182,7 @@ export default function HomePage() {
                 alt="James Webb Space Telescope NIRCam image of the Pillars of Creation in the Eagle Nebula"
                 credit="NASA, ESA, CSA, STScI • Pillars of Creation • 6,500 light-years • public domain"
                 kicker="JWST NIRCam • M16"
-                className="aspect-[4/5] rounded-3xl shadow-2xl shadow-cyan-500/20"
+                className="aspect-[4/3] rounded-3xl shadow-2xl shadow-cyan-500/20"
                 priority
               />
               <div className="hud-card rounded-3xl overflow-hidden">

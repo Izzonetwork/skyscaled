@@ -34,7 +34,7 @@ export default function ObservatoryGallery() {
         </div>
 
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
-          <div className="hud-card rounded-3xl p-3 sm:p-4 lg:col-span-7">
+          <div className="hud-card min-w-0 rounded-3xl p-3 sm:p-4 lg:col-span-7">
             <SpaceFrame
               src={frame.image}
               alt={frame.imageAlt}
@@ -62,7 +62,7 @@ export default function ObservatoryGallery() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-5 lg:grid-cols-2">
+          <div className="grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-5 lg:grid-cols-2">
             {OBSERVATORY_GALLERY.map((item, index) => {
               const selected = index === selectedIndex;
               const previewing = index === activeIndex;
