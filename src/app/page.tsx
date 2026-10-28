@@ -1,6 +1,9 @@
 import React from "react";
 import CosmicScaleExplorer from "@/components/CosmicScaleExplorer";
 import EpisodeArchive from "@/components/EpisodeArchive";
+import ObservatoryGallery from "@/components/ObservatoryGallery";
+import HeroBackdrop from "@/components/HeroBackdrop";
+import SpaceFrame from "@/components/SpaceFrame";
 import {
   CHANNEL_INFO,
   GLOBAL_SKY_EVENTS,
@@ -45,7 +48,7 @@ export default function HomePage() {
       </div>
 
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/85 border-b border-slate-800/80">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-cyan-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-3 group">
             <img
@@ -66,6 +69,9 @@ export default function HomePage() {
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
             <a href="#scale-explorer" className="hover:text-cyan-300 transition-colors">
               Cosmic Scale Explorer
+            </a>
+            <a href="#observatory" className="hover:text-cyan-300 transition-colors">
+              Observatory
             </a>
             <a href="#explainers" className="hover:text-cyan-300 transition-colors">
               Explainers &amp; Shorts
@@ -94,8 +100,9 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-24">
+          <HeroBackdrop />
+          <div className="relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-mono uppercase tracking-widest mb-6">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -168,8 +175,16 @@ export default function HomePage() {
             </div>
 
             {/* Hero Visual Card */}
-            <div className="lg:col-span-5">
-              <div className="rounded-3xl bg-slate-900/90 border border-cyan-500/30 overflow-hidden shadow-2xl shadow-cyan-500/10">
+            <div className="lg:col-span-5 space-y-4">
+              <SpaceFrame
+                src="/images/space/pillars-of-creation.jpg"
+                alt="James Webb Space Telescope NIRCam image of the Pillars of Creation in the Eagle Nebula"
+                credit="NASA, ESA, CSA, STScI • Pillars of Creation • 6,500 light-years • public domain"
+                kicker="JWST NIRCam • M16"
+                className="aspect-[4/5] rounded-3xl shadow-2xl shadow-cyan-500/20"
+                priority
+              />
+              <div className="hud-card rounded-3xl overflow-hidden">
                 <div className="relative aspect-video bg-slate-950">
                   <img
                     src="/thumbnails/ep01-universe-scale.jpg"
@@ -224,7 +239,8 @@ export default function HomePage() {
           </div>
 
           {/* Direct YouTube Releases Strip */}
-          <div className="mt-14 pt-10 border-t border-slate-800/80">
+          <div className="relative z-10 mt-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <hr className="section-divider mb-8" />
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
               <h2 className="text-sm font-mono uppercase tracking-widest text-cyan-300 font-bold">
                 Direct YouTube Releases on {CHANNEL_INFO.youtubeHandle}
@@ -247,7 +263,7 @@ export default function HomePage() {
                   href={vid.youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-red-500/50 p-3.5 transition-all flex flex-col justify-between"
+                  className="group hud-card rounded-2xl hover:border-red-400/60 p-3.5 transition-all flex flex-col justify-between"
                 >
                   <div>
                     <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950 mb-3">
@@ -278,14 +294,18 @@ export default function HomePage() {
         {/* Interactive Cosmic Scale Explorer */}
         <CosmicScaleExplorer />
 
+        {/* Deep Space Observatory Gallery */}
+        <ObservatoryGallery />
+
         {/* Filterable Explainers & Daily Shorts Archive */}
         <EpisodeArchive />
 
         {/* Global Sky Events Guide (UTC + Both Hemispheres) */}
         <section
           id="sky-events"
-          className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+          className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
         >
+          <hr className="section-divider mb-16" />
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-300 text-xs font-semibold uppercase tracking-widest mb-3">
@@ -315,8 +335,16 @@ export default function HomePage() {
             {GLOBAL_SKY_EVENTS.map((ev) => (
               <div
                 key={ev.id}
-                className="rounded-2xl bg-slate-900/80 border border-slate-800 p-6 flex flex-col justify-between"
+                className="hud-card rounded-2xl overflow-hidden flex flex-col justify-between"
               >
+                <SpaceFrame
+                  src={ev.thumbnail}
+                  alt={ev.imageAlt}
+                  credit={ev.imageCredit}
+                  kicker={ev.category}
+                  className="h-48 sm:h-56"
+                />
+                <div className="p-6 flex flex-col justify-between flex-1">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                     <span className="px-2.5 py-1 rounded-md bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 font-mono text-xs font-semibold">
@@ -381,6 +409,7 @@ export default function HomePage() {
                     ))}
                   </div>
                 </div>
+                </div>
               </div>
             ))}
           </div>
@@ -389,9 +418,10 @@ export default function HomePage() {
         {/* Scientific Rigor & Methodology Section */}
         <section
           id="methodology"
-          className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800/80"
+          className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
         >
-          <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950/40 border border-slate-800 p-8 sm:p-12">
+          <hr className="section-divider mb-16" />
+          <div className="hud-card rounded-3xl bg-gradient-to-br from-slate-950/90 via-slate-950/80 to-indigo-950/70 p-8 sm:p-12">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 text-xs font-semibold uppercase tracking-widest mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
@@ -406,8 +436,8 @@ export default function HomePage() {
             </div>
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-5">
-                <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-bold">
+              <div className="rounded-2xl bg-slate-950/85 border border-cyan-500/20 p-5">
+                <div className="telemetry-chip text-xs text-cyan-300 font-bold">
                   01 • Primary Sources Only
                 </div>
                 <h3 className="mt-2 text-base font-bold text-white">
@@ -418,8 +448,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-5">
-                <div className="text-xs font-mono text-amber-400 uppercase tracking-wider font-bold">
+              <div className="rounded-2xl bg-slate-950/85 border border-amber-400/20 p-5">
+                <div className="telemetry-chip text-xs text-amber-300 font-bold">
                   02 • Human-Scale Models
                 </div>
                 <h3 className="mt-2 text-base font-bold text-white">
@@ -430,8 +460,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-5">
-                <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider font-bold">
+              <div className="rounded-2xl bg-slate-950/85 border border-indigo-400/25 p-5">
+                <div className="telemetry-chip text-xs text-indigo-300 font-bold">
                   03 • Global &amp; Exact Dates
                 </div>
                 <h3 className="mt-2 text-base font-bold text-white">
@@ -442,8 +472,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-5">
-                <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider font-bold">
+              <div className="rounded-2xl bg-slate-950/85 border border-emerald-400/25 p-5">
+                <div className="telemetry-chip text-xs text-emerald-300 font-bold">
                   04 • Authentic Optics
                 </div>
                 <h3 className="mt-2 text-base font-bold text-white">
@@ -459,7 +489,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/90 bg-slate-950 py-14 px-4 sm:px-6 lg:px-8">
+      <footer className="border-t border-cyan-500/15 bg-slate-950/90 py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
             <div className="flex items-center gap-3">
@@ -477,6 +507,9 @@ export default function HomePage() {
             </div>
             <p className="mt-2 text-xs sm:text-sm text-slate-400 max-w-xl">
               The Universe, Scaled to Human Understanding. Created by Hristo Stefanov. All sky-event times are stated in UTC with Northern and Southern Hemisphere viewing guidance.
+            </p>
+            <p className="mt-2 text-[11px] text-slate-500 max-w-xl leading-relaxed">
+              Observatory photography: NASA, ESA, CSA, and STScI public-domain frames, plus Event Horizon Telescope images under CC BY 4.0. Files are stored on this site.
             </p>
           </div>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CHANNEL_INFO } from "@/data/skyscaledData";
+import ObservatorySky from "@/components/ObservatorySky";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://skyscaled.com"),
@@ -154,7 +155,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased selection:bg-cyan-500 selection:text-slate-950">
-        {children}
+        <ObservatorySky />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );

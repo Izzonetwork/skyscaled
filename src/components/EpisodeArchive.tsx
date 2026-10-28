@@ -38,10 +38,11 @@ export default function EpisodeArchive() {
       id="explainers"
       className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
     >
+      <hr className="section-divider mb-16" />
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-red-300 text-xs font-semibold uppercase tracking-widest mb-3">
+          <div className="telemetry-chip inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/15 border border-red-400/40 text-red-200 text-xs font-semibold mb-3">
             <Youtube className="w-3.5 h-3.5" />
             Sourced Video Library • {CHANNEL_INFO.youtubeHandle}
           </div>
@@ -65,7 +66,7 @@ export default function EpisodeArchive() {
       </div>
 
       {/* Filter Bar */}
-      <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 sm:p-5 mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="hud-card rounded-2xl p-4 sm:p-5 mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-mono uppercase tracking-wider text-slate-400 mr-1 flex items-center gap-1">
             <Filter className="w-3.5 h-3.5 text-cyan-400" />
@@ -115,7 +116,7 @@ export default function EpisodeArchive() {
           return (
             <article
               key={ep.id}
-              className="group rounded-2xl bg-slate-900/75 border border-slate-800/90 hover:border-cyan-500/40 transition-all overflow-hidden flex flex-col justify-between shadow-lg"
+              className="group hud-card rounded-2xl hover:border-cyan-300/70 transition-all overflow-hidden flex flex-col justify-between"
             >
               <div>
                 {/* Thumbnail */}
@@ -126,10 +127,29 @@ export default function EpisodeArchive() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-slate-950/10" />
+                  <svg className="constellation-overlay" viewBox="0 0 200 112" aria-hidden="true">
+                    <g fill="none" stroke="rgba(165,243,252,0.85)" strokeWidth="0.7">
+                      <path d="M18 22 L46 30 L38 54 L62 48" />
+                      <path d="M150 18 L176 36 L158 58" />
+                      <path d="M96 16 L104 40 L88 62" />
+                    </g>
+                    <g fill="#fde68a">
+                      <circle cx="18" cy="22" r="1.4" />
+                      <circle cx="46" cy="30" r="1.1" />
+                      <circle cx="38" cy="54" r="1.2" />
+                      <circle cx="62" cy="48" r="1" />
+                      <circle cx="150" cy="18" r="1.3" />
+                      <circle cx="176" cy="36" r="1.1" />
+                      <circle cx="158" cy="58" r="1.2" />
+                      <circle cx="96" cy="16" r="1.5" />
+                      <circle cx="104" cy="40" r="1" />
+                    </g>
+                  </svg>
+                  <div className="reticle-overlay opacity-40" aria-hidden="true" />
 
                   <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-950/90 border border-slate-700/80 text-cyan-300 font-mono text-[11px] font-bold">
+                    <span className="telemetry-chip px-2.5 py-1 rounded-md bg-slate-950/90 border border-cyan-400/40 text-cyan-100 text-[11px] font-bold">
                       {ep.code}
                     </span>
                     <span
@@ -152,7 +172,7 @@ export default function EpisodeArchive() {
                 <div className="p-5">
                   <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
                     <span>{ep.publishedDateUtc}</span>
-                    <span className="text-cyan-400">{ep.category}</span>
+                    <span className="telemetry-chip text-cyan-200">{ep.category}</span>
                   </div>
 
                   <h3 className="text-lg font-bold text-white leading-snug group-hover:text-cyan-300 transition-colors">

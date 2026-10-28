@@ -30,13 +30,15 @@ export interface SkyEventItem {
   title: string;
   dateUtc: string;
   peakWindowUtc: string;
-  category: "Meteor Shower" | "Planetary Alignment" | "Lunar Phase" | "Deep-Space Milestone";
+  category: "Meteor Shower" | "Planetary Alignment" | "Lunar Phase" | "Lunar Eclipse" | "Deep-Space Milestone";
   constellation: string;
   scaleComparison: string;
   northernHemisphere: string;
   southernHemisphere: string;
   opticalEquipment: string;
   thumbnail: string;
+  imageAlt: string;
+  imageCredit: string;
   youtubeUrl: string;
   sources: SourceLink[];
 }
@@ -55,6 +57,10 @@ export interface CosmicScaleStop {
   keyFact: string;
   sourceLabel: string;
   sourceUrl: string;
+  image: string;
+  imageAlt: string;
+  imageCredit: string;
+  imageFit?: "cover" | "contain";
 }
 
 export const CHANNEL_INFO = {
@@ -89,6 +95,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Earth orbits the Sun at 29.78 km/s, carrying every observer approximately 5,360 km through space during a single 3-minute explainer.",
     sourceLabel: "NASA GSFC Earth Fact Sheet",
     sourceUrl: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+    image: "/images/space/earth-apollo17.jpg",
+    imageAlt: "The Blue Marble: Earth photographed by the Apollo 17 crew on December 7, 1972",
+    imageCredit: "NASA / Apollo 17 crew • AS17-148-22727 • public domain",
   },
   {
     id: "moon",
@@ -105,6 +114,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "The Moon completes one full axial rotation in the exact time it takes to complete one orbit around Earth (27.32 Earth days), keeping the same hemisphere facing Earth.",
     sourceLabel: "NASA Moon Fact Sheet",
     sourceUrl: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+    image: "/images/space/moon-lro.jpg",
+    imageAlt: "Lunar Reconnaissance Orbiter Wide Angle Camera mosaic of the lunar nearside",
+    imageCredit: "NASA / GSFC / Arizona State University • LRO WAC • public domain",
   },
   {
     id: "sun",
@@ -121,6 +133,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Sunlight crosses vacuum from the solar photosphere to Earth in 8 minutes 20 seconds, after photons spend 10,000 to 170,000 years scattering out from the solar core.",
     sourceLabel: "NASA Solar System Exploration — The Sun",
     sourceUrl: "https://science.nasa.gov/sun/facts/",
+    image: "/images/space/sun-sdo.jpg",
+    imageAlt: "Extreme-ultraviolet image of the Sun from NASA's Solar Dynamics Observatory",
+    imageCredit: "NASA / SDO / AIA • public domain",
   },
   {
     id: "voyager-1",
@@ -138,6 +153,28 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
     sourceLabel: "NASA Voyager 1 — What Is a Light-Day?",
     sourceUrl:
       "https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/",
+    image: "/images/space/voyager-1.jpg",
+    imageAlt: "NASA/JPL portrait of the Voyager spacecraft, high-gain antenna and magnetometer boom extended",
+    imageCredit: "NASA / JPL • public domain. Voyager 1 is too small and too distant to photograph in interstellar space; this is the spacecraft.",
+  },
+  {
+    id: "oort-cloud",
+    name: "Oort Cloud",
+    subtitle: "Spherical Reservoir of Long-Period Comets",
+    realDistanceKm: 14959787070000,
+    realDistanceLabel: "100,000 AU outer edge (1.58 light-years)",
+    realDiameterKm: "Spherical shell out to about 100,000 AU",
+    lightTravelTime: "1.58 years",
+    sandScaleSize: "Comet nuclei are unresolved specks",
+    sandScaleDistance: "1,174 km from the 1 mm Earth grain",
+    voyagerTravelTime: "approx. 27,900 years at 17 km/s",
+    keyFact:
+      "No spacecraft has reached the Oort Cloud. Its evidence is long-period comets. NASA places the outer edge near 100,000 AU (1.58 light-years), still well short of Proxima Centauri at 4.246 light-years. The photograph is Comet NEOWISE (C/2020 F3), an Oort-cloud comet, with the International Space Station crossing the frame.",
+    sourceLabel: "NASA Solar System Exploration — Oort Cloud",
+    sourceUrl: "https://science.nasa.gov/solar-system/oort-cloud/",
+    image: "/images/space/neowise.jpg",
+    imageAlt: "Comet NEOWISE shining beneath a streak of the International Space Station",
+    imageCredit: "NASA • Comet NEOWISE (C/2020 F3) and the ISS • public domain. A comet photograph stands in for the unseen Oort Cloud.",
   },
   {
     id: "proxima-centauri",
@@ -154,6 +191,10 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Even after 49 years of interstellar flight, Voyager 1 covers less than 1/1,500th of the distance to the nearest neighboring star system.",
     sourceLabel: "NASA / ESA Proxima Centauri Reference",
     sourceUrl: "https://science.nasa.gov/exoplanets/",
+    image: "/images/space/proxima-centauri.jpg",
+    imageAlt: "Hubble Space Telescope image of Proxima Centauri, the nearest star beyond the Sun",
+    imageCredit: "ESA / Hubble & NASA • CC BY 4.0",
+    imageFit: "contain",
   },
   {
     id: "boomerang-nebula",
@@ -170,6 +211,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Located 5,000 light-years away in Centaurus, gas expanding at 164 km/s cools the Boomerang Nebula to 1 Kelvin (-272.15 °C), colder than the 2.7 K cosmic microwave background.",
     sourceLabel: "NASA / ESA Hubble Boomerang Nebula Release",
     sourceUrl: "https://science.nasa.gov/missions/hubble/boomerang-nebula/",
+    image: "/images/space/boomerang-nebula.jpg",
+    imageAlt: "Hubble Space Telescope image of the Boomerang Nebula, a bipolar protoplanetary nebula in Centaurus",
+    imageCredit: "ESA / NASA • public domain",
   },
   {
     id: "pillars-of-creation",
@@ -186,6 +230,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Imaged in infrared by the James Webb Space Telescope, individual finger-like projections at the tops of the pillars exceed the diameter of our entire solar system.",
     sourceLabel: "NASA / ESA / CSA James Webb Space Telescope",
     sourceUrl: "https://science.nasa.gov/mission/webb/",
+    image: "/images/space/pillars-of-creation.jpg",
+    imageAlt: "James Webb Space Telescope NIRCam image of the Pillars of Creation in the Eagle Nebula, Messier 16",
+    imageCredit: "NASA, ESA, CSA, STScI • image processing: Joseph DePasquale, Anton M. Koekemoer, Alyssa Pagan (STScI) • public domain",
   },
   {
     id: "andromeda-galaxy",
@@ -203,6 +250,28 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
     sourceLabel: "NASA Hubble Messier 31 Catalog",
     sourceUrl:
       "https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/messier-31/",
+    image: "/images/space/andromeda-m31.jpg",
+    imageAlt: "Hubble Space Telescope mosaic of the Andromeda Galaxy, Messier 31",
+    imageCredit: "NASA, ESA, J. Dalcanton, B.F. Williams, and L.C. Johnson (University of Washington), the PHAT team, and R. Gendler • CC BY 4.0",
+  },
+  {
+    id: "laniakea",
+    name: "Laniakea Supercluster",
+    subtitle: "Home Supercluster of the Milky Way",
+    realDistanceKm: 2365000000000000000000,
+    realDistanceLabel: "Spans ~520 million light-years; Great Attractor region ~250 million light-years",
+    realDiameterKm: "About 520 million light-years across (~100,000 galaxies)",
+    lightTravelTime: "250 million years toward the Great Attractor",
+    sandScaleSize: "0.041 light-years across on the 1 mm Earth scale",
+    sandScaleDistance: "185.6 billion km (0.020 light-years) toward the Great Attractor",
+    voyagerTravelTime: "approx. 4.4 trillion years to the Great Attractor region",
+    keyFact:
+      "Laniakea, mapped by Tully et al. in 2014, is the gravitational basin that contains the Milky Way, the Local Group, and the Virgo Cluster. It spans roughly 520 million light-years. The photograph is the Virgo Cluster, about 54 million light-years away — the nearest rich cluster inside that basin. No single exposure can contain the full supercluster.",
+    sourceLabel: "Tully et al., Nature 513, 71 (2014)",
+    sourceUrl: "https://www.nature.com/articles/nature13674",
+    image: "/images/space/virgo-cluster.jpg",
+    imageAlt: "NASA photograph of galaxies in the Virgo Cluster, the nearest rich cluster inside the Laniakea Supercluster",
+    imageCredit: "NASA • Virgo Cluster (PIA07906) • public domain. The frame shows the cluster, not the entire supercluster.",
   },
   {
     id: "observable-universe",
@@ -219,6 +288,9 @@ export const COSMIC_SCALE_STOPS: CosmicScaleStop[] = [
       "Even when Earth is compressed to a 1 mm grain of sand, the observable universe remains 7.3 light-years across — wider than the real physical distance from Earth to Alpha Centauri.",
     sourceLabel: "NASA WMAP & ESA Planck Cosmology",
     sourceUrl: "https://science.nasa.gov/universe/overview/",
+    image: "/images/space/hubble-ultra-deep-field.jpg",
+    imageAlt: "Hubble Ultra Deep Field 2014, a dense field of galaxies in the constellation Fornax",
+    imageCredit: "NASA, ESA, H. Teplitz and M. Rafelski (IPAC/Caltech), A. Koekemoer (STScI), R. Windhorst (Arizona State University), and Z. Levay (STScI) • public domain",
   },
 ];
 
@@ -825,6 +897,36 @@ export const EXPLAINERS_AND_SHORTS: EpisodeItem[] = [
 
 export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
   {
+    id: "sky-lunar-eclipse-2026",
+    title: "Total Lunar Eclipse: Copper Blood Moon in Leo",
+    dateUtc: "March 3, 2026 • Greatest eclipse 11:34 UTC",
+    peakWindowUtc: "Totality 11:04–12:03 UTC (NASA GSFC, nearest minute)",
+    category: "Lunar Eclipse",
+    constellation: "Leo (under the lion's hind paws)",
+    scaleComparison:
+      "The Moon is 384,400 km away (1.28 light-seconds). Earth's umbra, filtered through the atmosphere, reddens the full disk. Umbral magnitude 1.1507 (NASA GSFC).",
+    northernHemisphere:
+      "Totality is visible in the early morning of March 3, 2026 from North and Central America, with the Moon in the western sky before dawn. Eastern Asia sees totality in the evening of March 3, 2026 as the Moon rises in the east. No eclipse is visible from Europe.",
+    southernHemisphere:
+      "Far western South America sees totality in the early morning of March 3, 2026, with the Moon in the western sky. Australia sees totality in the evening sky. Much of the rest of South America sees a partial eclipse. No eclipse is visible from Africa.",
+    opticalEquipment:
+      "Naked eye shows the copper disk. Binoculars or a small telescope resolve the color across maria during totality (11:04–12:03 UTC).",
+    thumbnail: "/images/space/lunar-eclipse.jpg",
+    imageAlt: "NASA sequence of a total lunar eclipse, with the copper blood-moon phase at mid-eclipse",
+    imageCredit: "NASA Glenn • total lunar eclipse sequence (GRC-2025-C-01605) • public domain. Geometry reference for the March 3, 2026 eclipse.",
+    youtubeUrl: "https://www.youtube.com/@skyscaled",
+    sources: [
+      {
+        label: "NASA GSFC — Eclipses During 2026",
+        url: "https://eclipse.gsfc.nasa.gov/OH/OH2026.html",
+      },
+      {
+        label: "NASA — March 2026 Total Lunar Eclipse",
+        url: "https://science.nasa.gov/solar-system/moon/march-2026-total-lunar-eclipse-your-questions-answered/",
+      },
+    ],
+  },
+  {
     id: "sky-saturn-opposition-2026",
     title: "Saturn at Opposition & Peak October Visibility",
     dateUtc: "October 4–31, 2026 (Opposition: October 4, 2026 • 12:21 UTC)",
@@ -839,7 +941,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "Rises in the east-northeast at dusk and transits high across the northern sky around local midnight, well placed across all southern latitudes.",
     opticalEquipment:
       "Naked eye sees a bright golden star-like point; any beginner telescope at 30x–50x resolves the rings and largest moon Titan.",
-    thumbnail: "/thumbnails/sky-saturn-opposition.jpg",
+    thumbnail: "/images/space/saturn-cassini.jpg",
+    imageAlt: "Cassini portrait of Saturn and its rings during the August 2009 equinox",
+    imageCredit: "NASA / JPL / Space Science Institute • Cassini equinox portrait • public domain",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -863,7 +967,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "Because the radiant near Orion's club sits at Dec +16°, Southern Hemisphere observers enjoy dark pre-dawn views looking north-northeast after moonset.",
     opticalEquipment:
       "Naked eye only — lie back with a wide view of the sky and allow 20 minutes for dark adaptation.",
-    thumbnail: "/thumbnails/ep07-orionids-long.jpg",
+    thumbnail: "/images/space/perseid-meteor.jpg",
+    imageAlt: "A meteor streak above a tree line under the Milky Way, photographed by NASA",
+    imageCredit: "NASA • Perseid meteor photograph • public domain. Visual reference for meteor-shower physics; the Orionid radiant is in Orion.",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -891,7 +997,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "Rises in the east as the Sun sets in the west, arcing across the northern sky throughout the night.",
     opticalEquipment:
       "Naked eye or 7x–10x binoculars (best along the terminator on the nights before and after October 26, 2026).",
-    thumbnail: "/thumbnails/short-moon-one-side.jpg",
+    thumbnail: "/images/space/moon-lro.jpg",
+    imageAlt: "Lunar Reconnaissance Orbiter mosaic of the full nearside of the Moon",
+    imageCredit: "NASA / GSFC / Arizona State University • LRO WAC nearside mosaic • public domain",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -915,7 +1023,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "Face due north 2–3 hours after sunset; from 30°S, Andromeda reaches ~19° altitude above the northern horizon.",
     opticalEquipment:
       "Naked eye from a dark site, or 8x42 / 10x50 binoculars to reveal the bright galactic core and elongated disk.",
-    thumbnail: "/thumbnails/ep03-andromeda.jpg",
+    thumbnail: "/images/space/andromeda-m31.jpg",
+    imageAlt: "Hubble mosaic of the Andromeda Galaxy, Messier 31",
+    imageCredit: "NASA, ESA, PHAT team, and R. Gendler • CC BY 4.0",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -943,7 +1053,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "Look northeast after local midnight once the Sickle of Leo rises and the first-quarter Moon has set; best between 02:00 and dawn.",
     opticalEquipment:
       "Naked eye — wide field of view away from city lights after local midnight.",
-    thumbnail: "/thumbnails/ep01-universe-scale.jpg",
+    thumbnail: "/images/space/perseid-meteor-wide.jpg",
+    imageAlt: "Meteor streak crossing a star field above silhouetted trees, photographed by NASA",
+    imageCredit: "NASA • Perseid meteor photograph • public domain. Visual reference for a meteor shower; the Leonid radiant is in Leo.",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -971,7 +1083,9 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
       "NASA's Canberra Deep Space Communication Complex in Australia (35°S) completes the 360° global tracking ring as Earth rotates.",
     opticalEquipment:
       "Radio telemetry only (tracked via 70-meter Deep Space Network antennas at S-band and X-band frequencies).",
-    thumbnail: "/thumbnails/ep14-voyager-light-day.jpg",
+    thumbnail: "/images/space/voyager-1.jpg",
+    imageAlt: "NASA/JPL portrait of the Voyager spacecraft",
+    imageCredit: "NASA / JPL • public domain. The milestone is a radio distance, not an optical sighting.",
     youtubeUrl: "https://www.youtube.com/@skyscaled",
     sources: [
       {
@@ -979,5 +1093,165 @@ export const GLOBAL_SKY_EVENTS: SkyEventItem[] = [
         url: "https://science.nasa.gov/mission/voyager/voyager-1/voyager-1-what-is-a-light-day/",
       },
     ],
+  },
+];
+
+export interface ObservatoryFrame {
+  id: string;
+  title: string;
+  image: string;
+  imageAlt: string;
+  imageFit?: "cover" | "contain";
+  distanceLabel: string;
+  lightTravel: string;
+  instrument: string;
+  scaleFact: string;
+  credit: string;
+}
+
+export const OBSERVATORY_GALLERY: ObservatoryFrame[] = [
+  {
+    id: "webb-deep-field",
+    title: "Webb's First Deep Field",
+    image: "/images/space/webb-deep-field.jpg",
+    imageAlt: "James Webb Space Telescope NIRCam deep field of galaxy cluster SMACS 0723",
+    distanceLabel: "SMACS 0723 at redshift 0.390; background galaxies beyond 13 billion years of lookback",
+    lightTravel: "Cluster light-travel time about 4.3 billion years",
+    instrument: "JWST NIRCam • 6.5 m gold-coated primary • released July 12, 2022",
+    scaleFact:
+      "On the 1 mm Earth scale, 4.3 billion light-years is about 0.34 light-years. Gravitational lensing by the cluster stretches background galaxies into arcs.",
+    credit: "NASA, ESA, CSA, STScI • public domain",
+  },
+  {
+    id: "pillars",
+    title: "Pillars of Creation (M16)",
+    image: "/images/space/pillars-of-creation.jpg",
+    imageAlt: "James Webb Space Telescope NIRCam view of the Pillars of Creation",
+    distanceLabel: "6,500 light-years • Eagle Nebula, Serpens",
+    lightTravel: "6,500 years",
+    instrument: "JWST NIRCam • near-infrared • NASA / ESA / CSA / STScI",
+    scaleFact:
+      "The tallest pillar is about 4 to 5 light-years high. On the 1 mm Earth scale that column is roughly 3,300 km tall, and the nebula sits 4.82 million km from the grain.",
+    credit: "NASA, ESA, CSA, STScI • public domain",
+  },
+  {
+    id: "crab",
+    title: "Crab Nebula (M1)",
+    image: "/images/space/crab-nebula.jpg",
+    imageAlt: "Hubble Space Telescope image of the Crab Nebula supernova remnant",
+    distanceLabel: "6,500 light-years • about 11 light-years across • Taurus",
+    lightTravel: "6,500 years",
+    instrument: "Hubble Space Telescope • NASA, ESA, J. Hester and A. Loll (Arizona State University)",
+    scaleFact:
+      "The remnant of the supernova recorded in 1054. Filaments of expanding debris still outline the blast. A pulsar at the center spins about 30 times each second.",
+    credit: "NASA, ESA, J. Hester and A. Loll (Arizona State University) • public domain",
+  },
+  {
+    id: "saturn",
+    title: "Saturn and the Rings",
+    image: "/images/space/saturn-cassini.jpg",
+    imageAlt: "Cassini image of Saturn with the rings edge-on during equinox",
+    distanceLabel: "Opposition on October 4, 2026 at 12:21 UTC: 8.43 AU (1.262 billion km)",
+    lightTravel: "70.1 minutes at the October 4, 2026 opposition distance",
+    instrument: "Cassini Imaging Science Subsystem • NASA / JPL / Space Science Institute • equinox portrait, August 2009",
+    scaleFact:
+      "The main rings span about 282,000 km, while Saturn's equatorial diameter is 120,500 km. Cassini took this frame from Saturn orbit, not from Earth.",
+    credit: "NASA / JPL / Space Science Institute • public domain",
+  },
+  {
+    id: "jupiter",
+    title: "Jupiter from Juno",
+    image: "/images/space/jupiter-juno.jpg",
+    imageAlt: "JunoCam photograph of Jupiter's cloud bands along the limb",
+    distanceLabel: "Mean solar distance 5.20 AU (778 million km)",
+    lightTravel: "About 43 minutes from the Sun; opposition distance varies by apparition",
+    instrument: "JunoCam • NASA / JPL-Caltech / SwRI / MSSS • public domain",
+    scaleFact:
+      "Equatorial diameter 139,820 km — about 11 Earths across. The Great Red Spot is a storm wider than Earth, sitting inside bands that circle the planet at hundreds of kilometers per hour.",
+    credit: "NASA / JPL-Caltech / SwRI / MSSS • public domain",
+  },
+  {
+    id: "venus",
+    title: "Venus Cloud Deck",
+    image: "/images/space/venus-mariner.jpg",
+    imageAlt: "Mariner 10 view of Venus wrapped in sulfuric-acid clouds",
+    distanceLabel: "Inferior conjunction October 24, 2026 at approximately 03:44 UTC",
+    lightTravel: "Minutes, when Venus lies between Earth and the Sun",
+    instrument: "Mariner 10 • NASA • 1974 cloud-deck imaging",
+    scaleFact:
+      "Venus is 12,104 km across and rotates once every 243.02 Earth days, longer than its 224.7-day year. The bright disk is cloud, not surface.",
+    credit: "NASA / Mariner 10 • public domain",
+  },
+  {
+    id: "m87",
+    title: "Black Hole Shadow: M87*",
+    image: "/images/space/m87-eht.jpg",
+    imageAlt: "Event Horizon Telescope image of the supermassive black hole M87*",
+    distanceLabel: "55 million light-years • Virgo Cluster, inside Laniakea",
+    lightTravel: "55 million years",
+    instrument: "Event Horizon Telescope • 1.3 mm • observations April 2017 • released April 10, 2019",
+    scaleFact:
+      "M87* holds about 6.5 billion solar masses. The bright ring is millimeter light bent around the shadow. The shadow is larger than the planetary solar system.",
+    credit: "Event Horizon Telescope Collaboration • CC BY 4.0",
+  },
+  {
+    id: "sgr-a",
+    title: "Black Hole Shadow: Sagittarius A*",
+    image: "/images/space/sgr-a-eht.jpg",
+    imageAlt: "Event Horizon Telescope image of Sagittarius A*, the Milky Way's central black hole",
+    distanceLabel: "27,000 light-years • galactic center",
+    lightTravel: "27,000 years",
+    instrument: "Event Horizon Telescope • 1.3 mm • image released May 12, 2022",
+    scaleFact:
+      "Sagittarius A* is about 4 million solar masses. It is roughly 1,600 times less massive than M87* and roughly 2,000 times closer, so the two shadows subtend a similar angle.",
+    credit: "Event Horizon Telescope Collaboration • CC BY 4.0",
+  },
+  {
+    id: "starship",
+    title: "Starship Ascent from Orbit",
+    image: "/images/space/starship-flight.jpg",
+    imageAlt: "Starship launch plume climbing through the atmosphere, photographed from the International Space Station",
+    distanceLabel: "Low Earth orbit altitude about 400 km for the camera; the stack is 124 m tall",
+    lightTravel: "A few milliseconds from the ground track to the station",
+    instrument: "ISS photograph iss072e220043 • NASA • Starship Flight 6 ascent",
+    scaleFact:
+      "Flight 6 is the plume in this NASA frame. Flight 14 later reached full orbital speed, about 27,600 km/h, and deployed 26 Starlink V3 satellites on September 28, 2026.",
+    credit: "NASA • public domain",
+  },
+  {
+    id: "corona",
+    title: "Solar Corona",
+    image: "/images/space/solar-corona.jpg",
+    imageAlt: "NASA composite of the solar corona during the July 11, 2010 total solar eclipse",
+    distanceLabel: "Photosphere at 1 AU (149.6 million km); the corona extends millions of kilometers farther",
+    lightTravel: "8 minutes 20 seconds from the photosphere to Earth",
+    instrument: "NASA GSFC composite • July 11, 2010 total solar eclipse corona with a solar disk",
+    scaleFact:
+      "The corona is million-degree plasma. On the 1 mm Earth scale the Sun is a 10.9 cm grapefruit 11.7 meters away, and this glow is the grapefruit's outer atmosphere.",
+    credit: "NASA / GSFC • public domain composite",
+  },
+  {
+    id: "aurora",
+    title: "Aurora from the Space Station",
+    image: "/images/space/aurora-iss.jpg",
+    imageAlt: "Green aurora along Earth's limb beside a solar array of the International Space Station",
+    distanceLabel: "Auroral curtain near 100 km altitude; station orbit near 400 km",
+    lightTravel: "Milliseconds from the curtain to the camera",
+    instrument: "ISS Expedition photograph • NASA • public domain",
+    scaleFact:
+      "The green line is atomic oxygen glowing near 100 km, the same altitude where meteoroids from the Orionids and Leonids vaporize.",
+    credit: "NASA • public domain",
+  },
+  {
+    id: "voyager-tour",
+    title: "Outer Solar System — Voyager Portraits",
+    image: "/images/space/solar-system-voyager.jpg",
+    imageAlt: "Montage of Voyager portraits of Jupiter, Saturn, Uranus, and Neptune",
+    distanceLabel: "Jupiter 5.2 AU • Saturn 9.5 AU • Uranus 19.2 AU • Neptune 30.1 AU",
+    lightTravel: "Neptune's sunlight takes about 4.1 hours to arrive",
+    instrument: "Voyager 1 and Voyager 2 imaging • NASA / JPL montage",
+    scaleFact:
+      "Shrink Earth to 1 mm and Neptune's orbit sits about 350 meters out. Voyager 1, launched September 5, 1977, reaches one light-day on November 18, 2026 at 10:16:07 UTC — far beyond Neptune.",
+    credit: "NASA / JPL • public domain montage of spacecraft photographs",
   },
 ];
