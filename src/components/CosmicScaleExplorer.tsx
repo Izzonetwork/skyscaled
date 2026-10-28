@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { COSMIC_SCALE_STOPS, CHANNEL_INFO } from "@/data/skyscaledData";
 import { Compass, ExternalLink, Sparkles, Gauge, Play } from "lucide-react";
+import SpaceFrame from "@/components/SpaceFrame";
 
 type ScalePreset = {
   id: "sand" | "marble" | "plate";
@@ -76,9 +77,11 @@ function formatScaledDistance(realKm: number, presetId: "sand" | "marble" | "pla
 
 export default function CosmicScaleExplorer() {
   const [selectedIndex, setSelectedIndex] = useState<number>(3); // Default to Voyager 1 at 1 Light-Day
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const [presetId, setPresetId] = useState<"sand" | "marble" | "plate">("sand");
 
-  const activeStop = COSMIC_SCALE_STOPS[selectedIndex];
+  const previewIndex = hoverIndex ?? selectedIndex;
+  const activeStop = COSMIC_SCALE_STOPS[previewIndex];
   const activePreset = SCALE_PRESETS.find((p) => p.id === presetId) || SCALE_PRESETS[0];
 
   return (
@@ -86,7 +89,8 @@ export default function CosmicScaleExplorer() {
       id="scale-explorer"
       className="relative py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
     >
-      <div className="rounded-3xl border border-cyan-500/25 bg-slate-950/90 backdrop-blur-xl p-6 sm:p-10 shadow-[0_0_80px_-20px_rgba(6,182,212,0.25)]">
+      <hr className="section-divider mb-16" />
+      <div className="hud-card rounded-3xl p-6 sm:p-10">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-slate-800/80">
           <div>
@@ -130,29 +134,39 @@ export default function CosmicScaleExplorer() {
 
         {/* Stop Selector Track */}
         <div className="mt-8">
-          <div className="flex items-center justify-between text-xs text-slate-400 uppercase tracking-wider font-semibold mb-3">
-            <span>Select Cosmic Milestone ({selectedIndex + 1} of {COSMIC_SCALE_STOPS.length})</span>
-            <span>Logarithmic Distance Ladder</span>
+          <div className="flex items-center justify-between text-xs text-slate-300 uppercase tracking-wider font-semibold mb-3">
+            <span>Select Cosmic Milestone ({previewIndex + 1} of {COSMIC_SCALE_STOPS.length})</span>
+            <span>{hoverIndex === null ? "Selected photograph" : "Hover photograph"}</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
             {COSMIC_SCALE_STOPS.map((stop, idx) => {
               const isSelected = idx === selectedIndex;
+              const isPreview = idx === previewIndex;
               return (
                 <button
                   key={stop.id}
                   type="button"
                   onClick={() => setSelectedIndex(idx)}
-                  className={`flex flex-col justify-between p-3 rounded-xl text-left transition-all cursor-pointer border ${
-                    isSelected
-                      ? "bg-gradient-to-br from-cyan-500/25 via-blue-600/20 to-indigo-900/30 border-cyan-400 text-white shadow-md shadow-cyan-500/15"
-                      : "bg-slate-900/70 border-slate-800/90 text-slate-400 hover:text-slate-200 hover:border-slate-700"
-                  }`}
+                  onMouseEnter={() => setHoverIndex(idx)}
+                  onMouseLeave={() => setHoverIndex(null)}
+                  onFocus={() => setHoverIndex(idx)}
+                  onBlur={() => setHoverIndex(null)}
+                  className={`overflow-hidden rounded-xl text-left transition-all cursor-pointer border ${
+                    isPreview
+                      ? "bg-slate-950 border-cyan-300 text-white shadow-md shadow-cyan-500/20"
+                      : "bg-slate-900/80 border-slate-700/80 text-slate-300 hover:text-white hover:border-cyan-500/40"
+                  } ${isSelected ? "ring-1 ring-amber-300/70" : ""}`}
                 >
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400">
-                    Stop 0{idx + 1}
+                  <img
+                    src={stop.image}
+                    alt=""
+                    className={`h-16 w-full sm:h-20 ${stop.imageFit === "contain" ? "object-contain bg-black" : "object-cover"}`}
+                  />
+                  <span className="block px-2.5 pt-2 text-[10px] font-mono uppercase tracking-wider text-cyan-300">
+                    Stop {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span className="mt-1 text-xs font-bold leading-snug line-clamp-2">
+                  <span className="block px-2.5 pb-2.5 text-xs font-bold leading-snug line-clamp-2">
                     {stop.name}
                   </span>
                 </button>
@@ -176,7 +190,17 @@ export default function CosmicScaleExplorer() {
 
         {/* Active Stop Readout Grid */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          <div className="lg:col-span-7 rounded-2xl bg-slate-900/90 border border-slate-800 p-6 flex flex-col justify-between">
+          <div className="lg:col-span-5 min-w-0">
+            <SpaceFrame
+              src={activeStop.image}
+              alt={activeStop.imageAlt}
+              credit={activeStop.imageCredit}
+              kicker={hoverIndex === null ? "Selected benchmark" : "Hover benchmark"}
+              fit={activeStop.imageFit ?? "cover"}
+              className="aspect-[4/3] rounded-2xl min-h-[280px]"
+            />
+          </div>
+          <div className="lg:col-span-7 min-w-0 rounded-2xl bg-slate-950/80 border border-slate-700/80 p-6 flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
@@ -193,6 +217,47 @@ export default function CosmicScaleExplorer() {
                 <Sparkles className="w-4 h-4 text-amber-400 inline mr-2 -mt-0.5" />
                 {activeStop.keyFact}
               </p>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-3">
+            <div className="rounded-2xl bg-slate-950/85 border border-cyan-500/30 p-4">
+              <div className="text-xs font-mono uppercase tracking-wider text-cyan-300">
+                Scaled Distance ({activePreset.label})
+              </div>
+              <div className="mt-1 text-xl sm:text-2xl font-extrabold text-white">
+                {presetId === "sand"
+                  ? activeStop.sandScaleDistance
+                  : formatScaledDistance(activeStop.realDistanceKm, presetId)}
+              </div>
+              <div className="mt-1 text-xs text-slate-400">
+                Object size on 1 mm Earth scale: <span className="text-slate-200 font-medium">{activeStop.sandScaleSize}</span>
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-slate-950/85 border border-slate-700 p-4">
+              <div className="text-xs font-mono uppercase tracking-wider text-amber-300">
+                Light-Travel Time (at 299,792 km/s)
+              </div>
+              <div className="mt-1 text-lg sm:text-xl font-bold text-white">
+                {activeStop.lightTravelTime}
+              </div>
+              <div className="mt-1 text-xs text-slate-400">
+                Unscaled Distance: {activeStop.realDistanceLabel}
+              </div>
+            </div>
+
+            <div className="rounded-2xl bg-slate-950/85 border border-slate-700 p-4">
+              <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-indigo-300">
+                <Gauge className="w-3.5 h-3.5" />
+                Voyager 1 Interstellar Transit (~17 km/s)
+              </div>
+              <div className="mt-1 text-base sm:text-lg font-bold text-white">
+                {activeStop.voyagerTravelTime}
+              </div>
+              <div className="mt-1 text-xs text-slate-400">
+                Reference: Voyager 1 crosses 1 light-day on November 18, 2026 at 10:16:07 UTC
+              </div>
+            </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4">
@@ -215,47 +280,6 @@ export default function CosmicScaleExplorer() {
                 <Play className="w-3.5 h-3.5 fill-current" />
                 Watch Pilot Explainer on YouTube {CHANNEL_INFO.youtubeHandle}
               </a>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3.5">
-            <div className="rounded-2xl bg-slate-900/90 border border-cyan-500/30 p-4">
-              <div className="text-xs font-mono uppercase tracking-wider text-cyan-300">
-                Scaled Distance ({activePreset.label})
-              </div>
-              <div className="mt-1 text-xl sm:text-2xl font-extrabold text-white">
-                {presetId === "sand"
-                  ? activeStop.sandScaleDistance
-                  : formatScaledDistance(activeStop.realDistanceKm, presetId)}
-              </div>
-              <div className="mt-1 text-xs text-slate-400">
-                Object size on 1 mm Earth scale: <span className="text-slate-200 font-medium">{activeStop.sandScaleSize}</span>
-              </div>
-            </div>
-
-            <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-              <div className="text-xs font-mono uppercase tracking-wider text-amber-300">
-                Light-Travel Time (at 299,792 km/s)
-              </div>
-              <div className="mt-1 text-lg sm:text-xl font-bold text-white">
-                {activeStop.lightTravelTime}
-              </div>
-              <div className="mt-1 text-xs text-slate-400">
-                Unscaled Distance: {activeStop.realDistanceLabel}
-              </div>
-            </div>
-
-            <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-              <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-indigo-300">
-                <Gauge className="w-3.5 h-3.5" />
-                Voyager 1 Interstellar Transit (~17 km/s)
-              </div>
-              <div className="mt-1 text-base sm:text-lg font-bold text-white">
-                {activeStop.voyagerTravelTime}
-              </div>
-              <div className="mt-1 text-xs text-slate-400">
-                Reference: Voyager 1 crosses 1 light-day on November 18, 2026 at 10:16:07 UTC
-              </div>
             </div>
           </div>
         </div>
