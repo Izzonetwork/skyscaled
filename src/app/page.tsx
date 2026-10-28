@@ -4,6 +4,10 @@ import DeepSpaceGallery from "@/components/DeepSpaceGallery";
 import EpisodeArchive from "@/components/EpisodeArchive";
 import Starfield, { OrbitalRings } from "@/components/Starfield";
 import TelescopeCalendar from "@/components/TelescopeCalendar";
+import AstroWeather from "@/components/observer/AstroWeather";
+import LightPollutionMap from "@/components/observer/LightPollutionMap";
+import { ObserverLocationProvider } from "@/components/observer/ObserverLocation";
+import TelescopeCalculator from "@/components/observer/TelescopeCalculator";
 import {
   CHANNEL_INFO,
   GLOBAL_SKY_EVENTS,
@@ -13,6 +17,8 @@ import {
   Play,
   Globe2,
   Compass,
+  Cloud,
+  Map,
   ShieldCheck,
   ExternalLink,
   Telescope,
@@ -93,7 +99,7 @@ export default function HomePage() {
             </div>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-300">
+          <nav className="hidden xl:flex items-center gap-4 text-sm font-medium text-slate-300">
             <a href="#telescope-calendar" className="text-cyan-200 hover:text-white transition-colors">
               Telescope Calendar
             </a>
@@ -123,12 +129,22 @@ export default function HomePage() {
             </a>
           </div>
         </div>
-        <nav className="flex gap-4 overflow-x-auto border-t border-slate-800/80 px-4 py-2 text-xs font-semibold text-slate-300 lg:hidden">
-          <a href="#telescope-calendar" className="shrink-0 text-cyan-200">Telescope Calendar</a>
-          <a href="#scale-explorer" className="shrink-0">Scale Explorer</a>
-          <a href="#deep-space-gallery" className="shrink-0">Deep Space Gallery</a>
-          <a href="#explainers" className="shrink-0">Explainers</a>
-          <a href="#sky-events" className="shrink-0">Sky Guide</a>
+        <nav className="flex gap-2 overflow-x-auto border-t border-cyan-500/20 bg-slate-950/80 px-4 py-2 text-xs font-semibold text-slate-200">
+          <span className="shrink-0 self-center font-mono text-[10px] uppercase tracking-[0.18em] text-cyan-300">Observer Tools</span>
+          <a href="#telescope-calculator" className="shrink-0 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-cyan-100">
+            Telescope Calculator
+          </a>
+          <a href="#astro-weather" className="shrink-0 rounded-full border border-sky-400/40 bg-sky-400/10 px-3 py-1 text-sky-100">
+            Astro Weather
+          </a>
+          <a href="#light-pollution-map" className="shrink-0 rounded-full border border-violet-400/40 bg-violet-400/10 px-3 py-1 text-violet-100">
+            Light Pollution Map
+          </a>
+          <a href="#telescope-calendar" className="shrink-0 px-2 py-1 text-slate-400 xl:hidden">Telescope Calendar</a>
+          <a href="#scale-explorer" className="shrink-0 px-2 py-1 text-slate-400 xl:hidden">Scale Explorer</a>
+          <a href="#deep-space-gallery" className="shrink-0 px-2 py-1 text-slate-400 xl:hidden">Deep Space Gallery</a>
+          <a href="#explainers" className="shrink-0 px-2 py-1 text-slate-400 xl:hidden">Explainers</a>
+          <a href="#sky-events" className="shrink-0 px-2 py-1 text-slate-400 xl:hidden">Sky Guide</a>
         </nav>
       </header>
 
@@ -192,6 +208,30 @@ export default function HomePage() {
                 >
                   <Compass className="w-4 h-4" />
                   Launch Scale Explorer
+                </a>
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <a
+                  href="#telescope-calculator"
+                  className="inline-flex items-center gap-2 rounded-full border border-cyan-400/40 bg-slate-950/70 px-4 py-2 text-xs font-bold text-cyan-100 hover:bg-cyan-400 hover:text-slate-950"
+                >
+                  <Telescope className="h-3.5 w-3.5" />
+                  Telescope Calculator
+                </a>
+                <a
+                  href="#astro-weather"
+                  className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-slate-950/70 px-4 py-2 text-xs font-bold text-sky-100 hover:bg-sky-400 hover:text-slate-950"
+                >
+                  <Cloud className="h-3.5 w-3.5" />
+                  Astro Weather
+                </a>
+                <a
+                  href="#light-pollution-map"
+                  className="inline-flex items-center gap-2 rounded-full border border-violet-400/40 bg-slate-950/70 px-4 py-2 text-xs font-bold text-violet-100 hover:bg-violet-400 hover:text-slate-950"
+                >
+                  <Map className="h-3.5 w-3.5" />
+                  Light Pollution Map
                 </a>
               </div>
 
@@ -370,6 +410,13 @@ export default function HomePage() {
         </section>
 
         <TelescopeCalendar />
+
+        <TelescopeCalculator />
+
+        <ObserverLocationProvider>
+          <AstroWeather />
+          <LightPollutionMap />
+        </ObserverLocationProvider>
 
         {/* Interactive Cosmic Scale Explorer */}
         <CosmicScaleExplorer />
@@ -581,6 +628,11 @@ export default function HomePage() {
             <p className="mt-2 text-xs sm:text-sm text-slate-400 max-w-xl">
               The Universe, Scaled to Human Understanding. Created by Hristo Stefanov. All sky-event times are stated in UTC with Northern and Southern Hemisphere viewing guidance.
             </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-semibold">
+              <a href="#telescope-calculator" className="text-cyan-300 hover:text-white">Telescope Calculator</a>
+              <a href="#astro-weather" className="text-sky-300 hover:text-white">Astro Weather</a>
+              <a href="#light-pollution-map" className="text-violet-300 hover:text-white">Light Pollution Map</a>
+            </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">

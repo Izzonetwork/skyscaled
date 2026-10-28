@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | SKYSCALED (@skyscaled)",
   },
   description:
-    "Official hub for Skyscaled (@skyscaled on YouTube): 3-minute sourced explainers, an interactive astronomical calendar for telescopes, and cosmic-scale models grounded in NASA, ESA, and JPL data.",
+    "Official hub for Skyscaled (@skyscaled on YouTube): 3-minute sourced explainers, a telescope and camera field-of-view calculator, live astronomical weather, a Bortle light-pollution map, and cosmic-scale models grounded in NASA, ESA, and JPL data.",
   keywords: [
     "Skyscaled",
     "@skyscaled",
@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     "Boomerang Nebula 1 Kelvin",
     "global sky events UTC",
     "astronomical calendar for telescopes",
+    "telescope field of view calculator",
+    "astrophotography image scale",
+    "bortle scale map",
+    "astronomical weather forecast",
     "astrophysics shorts",
   ],
   authors: [{ name: "Hristo Stefanov", url: "https://skyscaled.com" }],
