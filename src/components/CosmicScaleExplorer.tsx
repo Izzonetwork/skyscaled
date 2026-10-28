@@ -4,6 +4,59 @@ import React, { useState } from "react";
 import { COSMIC_SCALE_STOPS, CHANNEL_INFO } from "@/data/skyscaledData";
 import { Compass, ExternalLink, Sparkles, Gauge, Play } from "lucide-react";
 
+const SCALE_IMAGES: Record<string, { src: string; alt: string; credit: string }> = {
+  earth: {
+    src: "/images/space/earth-apollo17.jpg",
+    alt: "Earth photographed by the Apollo 17 crew on the way to the Moon",
+    credit: "NASA / Apollo 17 — public domain",
+  },
+  moon: {
+    src: "/images/space/moon-galileo.jpg",
+    alt: "The near side of the Moon from the Galileo spacecraft",
+    credit: "NASA / JPL / USGS — Galileo PIA00302, public domain",
+  },
+  sun: {
+    src: "/images/space/sun-sdo.jpg",
+    alt: "The Sun in extreme ultraviolet light from NASA's Solar Dynamics Observatory",
+    credit: "NASA / SDO / AIA — public domain",
+  },
+  "voyager-1": {
+    src: "/images/space/voyager-1.jpg",
+    alt: "A Voyager spacecraft during testing at NASA's Jet Propulsion Laboratory in November 1976",
+    credit: "NASA / JPL — Voyager testing photograph, November 1976, public domain",
+  },
+  "proxima-centauri": {
+    src: "/images/space/proxima-centauri.jpg",
+    alt: "Hubble image of Proxima Centauri, the nearest star beyond the Sun",
+    credit: "ESA / Hubble & NASA — CC BY 4.0",
+  },
+  "boomerang-nebula": {
+    src: "/images/space/boomerang-nebula.jpg",
+    alt: "Hubble image of the Boomerang Nebula",
+    credit: "NASA / ESA / Hubble — public domain",
+  },
+  "pillars-of-creation": {
+    src: "/images/space/pillars-of-creation.jpg",
+    alt: "Webb near-infrared image of the Pillars of Creation in the Eagle Nebula",
+    credit: "NASA, ESA, CSA, STScI — Webb NIRCam, public domain",
+  },
+  "andromeda-galaxy": {
+    src: "/images/space/andromeda-m31.jpg",
+    alt: "The Andromeda Galaxy, Messier 31",
+    credit: "Public-domain astronomical photograph via Wikimedia Commons",
+  },
+  laniakea: {
+    src: "/images/space/laniakea-supercluster.png",
+    alt: "Map of the Laniakea Supercluster and its basins of attraction",
+    credit: "Cosmicflows-2 visualization, Tully et al. 2014 — Wikimedia Commons, CC BY 4.0. A survey map, not a single exposure.",
+  },
+  "observable-universe": {
+    src: "/images/space/hubble-ultra-deep-field.jpg",
+    alt: "Hubble Ultra Deep Field, a core sample of the observable universe",
+    credit: "NASA / ESA / H. Teplitz & M. Rafelski (IPAC/Caltech), A. Koekemoer (STScI), R. Windhorst (ASU), Z. Levay (STScI) — public domain",
+  },
+};
+
 type ScalePreset = {
   id: "sand" | "marble" | "plate";
   label: string;
@@ -135,7 +188,7 @@ export default function CosmicScaleExplorer() {
             <span>Logarithmic Distance Ladder</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {COSMIC_SCALE_STOPS.map((stop, idx) => {
               const isSelected = idx === selectedIndex;
               return (
@@ -149,8 +202,13 @@ export default function CosmicScaleExplorer() {
                       : "bg-slate-900/70 border-slate-800/90 text-slate-400 hover:text-slate-200 hover:border-slate-700"
                   }`}
                 >
+                  <img
+                    src={SCALE_IMAGES[stop.id]?.src}
+                    alt=""
+                    className="mb-2 h-12 w-full rounded-md object-cover"
+                  />
                   <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400">
-                    Stop 0{idx + 1}
+                    Stop {String(idx + 1).padStart(2, "0")}
                   </span>
                   <span className="mt-1 text-xs font-bold leading-snug line-clamp-2">
                     {stop.name}
@@ -178,6 +236,18 @@ export default function CosmicScaleExplorer() {
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           <div className="lg:col-span-7 rounded-2xl bg-slate-900/90 border border-slate-800 p-6 flex flex-col justify-between">
             <div>
+              {SCALE_IMAGES[activeStop.id] ? (
+                <div className="relative mb-5 overflow-hidden rounded-2xl border border-cyan-500/20">
+                  <img
+                    src={SCALE_IMAGES[activeStop.id].src}
+                    alt={SCALE_IMAGES[activeStop.id].alt}
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 to-transparent px-3 pb-2 pt-8 text-[11px] text-slate-200">
+                    {SCALE_IMAGES[activeStop.id].credit}
+                  </div>
+                </div>
+              ) : null}
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
                   {activeStop.subtitle}

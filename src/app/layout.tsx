@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { CHANNEL_INFO } from "@/data/skyscaledData";
+import Starfield from "@/components/Starfield";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://skyscaled.com"),
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | SKYSCALED (@skyscaled)",
   },
   description:
-    "Official hub for Skyscaled (@skyscaled on YouTube): 3-minute sourced explainers and daily cosmic paradox Shorts turning astrophysics, deep space, orbital engineering, and global sky events into physical human-scale models.",
+    "Official hub for Skyscaled (@skyscaled on YouTube): 3-minute sourced explainers, an interactive astronomical calendar for telescopes, and cosmic-scale models grounded in NASA, ESA, and JPL data.",
   keywords: [
     "Skyscaled",
     "@skyscaled",
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
     "Andromeda galaxy star hop guide",
     "Boomerang Nebula 1 Kelvin",
     "global sky events UTC",
+    "astronomical calendar for telescopes",
     "astrophysics shorts",
   ],
   authors: [{ name: "Hristo Stefanov", url: "https://skyscaled.com" }],
@@ -154,7 +156,8 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased selection:bg-cyan-500 selection:text-slate-950">
-        {children}
+        <Starfield className="pointer-events-none fixed inset-0 z-0" />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );
